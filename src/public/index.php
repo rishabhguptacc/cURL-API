@@ -11,6 +11,8 @@ use Phalcon\Url;
 use Phalcon\Db\Adapter\Pdo\Mysql;
 use Phalcon\Config;
 
+// use Phalcon\Http\Request;
+
 $config = new Config([]);
 
 // Define some absolute path constants to aid in locating resources
@@ -53,19 +55,19 @@ $application = new Application($container);
 
 
 
-// $container->set(
-//     'db',
-//     function () {
-//         return new Mysql(
-//             [
-//                 'host'     => 'localhost',
-//                 'username' => 'root',
-//                 'password' => '',
-//                 'dbname'   => 'phalt',
-//                 ]
-//             );
-//         }
-// );
+$container->set(
+    'db',
+    function () {
+        return new Mysql(
+            [
+            'host'     => 'mysql-server',
+            'username' => 'root',
+            'password' => 'secret',
+            'dbname'   => 'phalcondb1',
+            ]
+        );
+    }
+);
 
 $container->set(
     'mongo',

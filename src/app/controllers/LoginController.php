@@ -6,6 +6,14 @@ class LoginController extends Controller
 {
     public function indexAction()
     {
-        //return '<h1>Hello!!!</h1>';
+        //return '<h1>Inside indexAction()...!!!</h1>';
+    }
+
+    public function loginUserAction()
+    {
+        // echo "login user action() ....";
+
+        print_r($this->request->getPost('email'));
+        die();
     }
 }

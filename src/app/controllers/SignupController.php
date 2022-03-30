@@ -5,7 +5,7 @@ use Phalcon\Mvc\Controller;
 class SignupController extends Controller{
 
     public function IndexAction(){
-
+        $this->view->rishabh = "hey Rishabh! nice chatting with you!";
     }
 
     public function registerAction(){
