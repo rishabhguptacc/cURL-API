@@ -10,6 +10,8 @@ use Phalcon\Mvc\Application;
 use Phalcon\Url;
 use Phalcon\Db\Adapter\Pdo\Mysql;
 use Phalcon\Config;
+use Phalcon\Http\Response;
+
 
 // use Phalcon\Http\Request;
 
@@ -89,3 +91,6 @@ try {
 } catch (\Exception $e) {
     echo 'Exception: ', $e->getMessage();
 }
+
+// Getting a response instance
+$response = new Response();
