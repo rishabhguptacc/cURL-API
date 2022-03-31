@@ -11,6 +11,8 @@ use Phalcon\Url;
 use Phalcon\Db\Adapter\Pdo\Mysql;
 use Phalcon\Config;
 use Phalcon\Http\Response;
+use Phalcon\Session\Manager;
+use Phalcon\Session\Adapter\Stream;
 
 
 // use Phalcon\Http\Request;
@@ -81,6 +83,28 @@ $container->set(
     true
 );
 
+// Getting a response instance
+$response = new Response();
+
+// DI container for session
+$container->set(
+    'session',
+    function () {
+        $session = new Manager();
+        $files = new Stream(
+            [
+                'savePath' => '/tmp',
+            ]
+        );
+
+        $session
+            ->setAdapter($files)
+            ->start();
+
+        return $session;
+    }
+);
+
 try {
     // Handle the request
     $response = $application->handle(
@@ -91,6 +115,3 @@ try {
 } catch (\Exception $e) {
     echo 'Exception: ', $e->getMessage();
 }
-
-// Getting a response instance
-$response = new Response();

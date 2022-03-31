@@ -4,6 +4,7 @@ use Phalcon\Mvc\Controller;
 // use MyApp\Models\Users;
 
 
+
 class LoginController extends Controller
 {
     public function indexAction()
@@ -26,9 +27,25 @@ class LoginController extends Controller
         $data=Users::find("name = '$name'");
         // echo "<pre>";
         // print_r($data[0]->name);
+        $dbId = $data[0]->id;
+        $dbName = $data[0]->name;
+        $dbEmail = $data[0]->email;
+        $dbPassword = $data[0]->password;
+
+
 
         if ($name == $data[0]->name && $password == $data[0]->password) {
             echo 'logged in!';
+
+            $this->session->set('name', $name);
+            $this->session->set('password', $password);
+
+            // echo '<pre>';
+            // print_r($this->session->name);
+            // die;
+            $profileData = array('name'=>$name, 'password'=>$password);
+            
+            $this->response->redirect('dashboard/');
         } else {
             // $response->setStatusCode(403, 'Forbidden');
             // $response->setContent("Sorry, Authentication Failed");
