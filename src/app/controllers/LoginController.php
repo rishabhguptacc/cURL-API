@@ -14,28 +14,64 @@ class LoginController extends Controller
 
     public function loginUserAction()
     {
-        // echo "login user action() ....";
-        $name = $this->request->getPost('name');
-        $password = $this->request->getPost('password');
-        $rememberMe = $this->request->getPost('rememberme');
+
+        $value = $this->cookies->get('remember-me')->getValue();
+
+        // print_r(var_dump($value));
+        if ($value != null) {
+            /**
+             * Fetching values from cookies set by the user!
+             */
+            $value = $this->cookies->get('remember-me')->getValue();
+            $cred = json_decode($value);
+            $ckName = $cred->name;
+            $ckPassword = $cred->password;
+
+            $data=Users::find("name = '$ckName'");
+        
+            $dbId = $data[0]->id;
+            $dbName = $data[0]->name;
+            $dbEmail = $data[0]->email;
+            $dbPassword = $data[0]->password;
+
+        } else {
+                /**
+             * Fetching values from Login form filled by the user!
+             */
+            $name = $this->request->getPost('name');
+            $password = $this->request->getPost('password');
+            $rememberMe = $this->request->getPost('rememberme');
 
 
-        // $data = Users::find(
-        //     [
-        //         'name' => $name
-        //     ]
-        // );
-        $data=Users::find("name = '$name'");
-        // echo "<pre>";
-        // print_r($data[0]->name);
-        $dbId = $data[0]->id;
-        $dbName = $data[0]->name;
-        $dbEmail = $data[0]->email;
-        $dbPassword = $data[0]->password;
+            // $data = Users::find(
+            //     [
+            //         'name' => $name
+            //     ]
+            // );
+            $data=Users::find("name = '$name'");
+            // echo "<pre>";
+            // print_r($data[0]->name);
+            $dbId = $data[0]->id;
+            $dbName = $data[0]->name;
+            $dbEmail = $data[0]->email;
+            $dbPassword = $data[0]->password;
+        }
 
 
+        
+       
+        if ($ckName == $dbName && $ckPassword == $dbPassword) {
 
-        if ($name == $data[0]->name && $password == $data[0]->password) {
+            $this->session->set('name', $ckName);
+            $this->session->set('password', $ckPassword);
+            $this->session->set('rememberme', $rememberMe);
+
+
+           
+            
+            $this->response->redirect('dashboard/');
+
+        } elseif ($name == $dbName && $password == $dbPassword) {
             echo 'logged in!';
 
             $this->session->set('name', $name);

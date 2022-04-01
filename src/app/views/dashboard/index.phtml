@@ -14,30 +14,36 @@
         if($this->session->has('name')){
 
             if($this->session->has('rememberme')){
+                $name = $this->session->name;
+                $password = $this->session->password;
+                // $rememberme = $this->session->rememberme;
 
+                $credentials = array('name'=>$name ,'password'=> $password);
 
                 // $this->response->setCookies($this->cookies);
 
                 $this->cookies->set(
                     'remember-me',
-                    $this->session->rememberme,
+                    json_encode($credentials),
                     time() + 15 * 86400 ,
                 );
                 $this->cookies->send();
             }
             
             echo '<pre>';
-            // print_r($this->cookies->getCookies());
-            // $cookie = $this->cookies->get();
-            //print_r($this->cookies->has('remember-me'));
+                // print_r($this->cookies->getCookies());
+                // $cookie = $this->cookies->get();
+                //print_r($this->cookies->has('remember-me'));
 
-            //unset($this->cookies);        // tried usnig unset...
+                //unset($this->cookies);        // tried using unset...
 
            
             // $this->cookies->get('remember-me')->delete();
-            $value = $this->cookies->get('remember-me')->getValue();
-            // print_r(isset($value));
-            
+                // $value = $this->cookies->get('remember-me')->getValue();
+                // print_r($value);
+                // $cred = json_decode($value);
+                // print_r($cred->name);
+                
             // echo '&nbsp;';
             $name = $this->session->name;
             echo '<h2>Hello '.$name.'!</h2>';
