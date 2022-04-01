@@ -140,7 +140,7 @@ $container->set(
 $container->set(
     'servertime',
     function () {
-        return date('Y-m-d');
+        return date('D, d-M-Y');
     }
 );
 
