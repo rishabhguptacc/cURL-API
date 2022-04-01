@@ -7,35 +7,50 @@
     <title>Login</title>
 </head>
 <body>
-    <h2>User Login</h2>
 
-    <!-- <h5>Login using this form</h5> -->
+    <?php 
+        $value = $this->cookies->get('remember-me')->getValue();
 
+        // print_r(var_dump($value));
+        if ($value != null)
+        {
+            echo "cookies exists!\n";
 
-<?php echo $this->tag->form("login/loginUser"); ?>
-
-    <p>
+            $this->response->redirect('dashboard');
+        } else {
+    ?>
+        <h2>User Login</h2>
+        
+        <!-- <h5>Login using this form</h5> -->
+        
+        
+        <?php echo $this->tag->form("login/loginUser"); ?>
+        
+        <p>
         <label for="name">Name</label>
         <?php echo $this->tag->textField("name"); ?>
-    </p>
-
-    <p>
+        </p>
+        
+        <p>
         <label for="password">Password</label>
         <?php echo $this->tag->textField("password"); ?>
-    </p>
-
-    <p>
+        </p>
+        
+        <p>
         <label for="rememberme">
-            <?php echo $this->tag->checkField(["rememberme", "value"=>"1"]); ?> 
-            &nbsp;&nbsp;&nbsp; Remember me
+        <?php echo $this->tag->checkField(["rememberme", "value"=>"remember"]); ?> 
+        &nbsp;&nbsp;&nbsp; Remember me
         </label>
         
-    </p>
-
-    <p>
+        </p>
+        
+        <p>
         <?php echo $this->tag->submitButton("Login"); ?>
-    </p>
+        </p>
+        
+        </form>
 
-</form>
+        <?php } ?>
+        
 </body>
 </html>

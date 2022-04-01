@@ -17,7 +17,8 @@ class LoginController extends Controller
         // echo "login user action() ....";
         $name = $this->request->getPost('name');
         $password = $this->request->getPost('password');
-        // print_r($name .' '.  $password);
+        $rememberMe = $this->request->getPost('rememberme');
+
 
         // $data = Users::find(
         //     [
@@ -39,11 +40,13 @@ class LoginController extends Controller
 
             $this->session->set('name', $name);
             $this->session->set('password', $password);
+            $this->session->set('rememberme', $rememberMe);
+
 
             // echo '<pre>';
             // print_r($this->session->name);
             // die;
-            $profileData = array('name'=>$name, 'password'=>$password);
+            
             
             $this->response->redirect('dashboard/');
         } else {

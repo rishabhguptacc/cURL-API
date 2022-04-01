@@ -13,8 +13,31 @@
 
         if($this->session->has('name')){
 
-            // echo isset($this->session->name).' hey ';
+            if($this->session->has('rememberme')){
 
+
+                // $this->response->setCookies($this->cookies);
+
+                $this->cookies->set(
+                    'remember-me',
+                    $this->session->rememberme,
+                    time() + 15 * 86400 ,
+                );
+                $this->cookies->send();
+            }
+            
+            echo '<pre>';
+            // print_r($this->cookies->getCookies());
+            // $cookie = $this->cookies->get();
+            //print_r($this->cookies->has('remember-me'));
+
+            //unset($this->cookies);        // tried usnig unset...
+
+           
+            // $this->cookies->get('remember-me')->delete();
+            $value = $this->cookies->get('remember-me')->getValue();
+            // print_r(isset($value));
+            
             // echo '&nbsp;';
             $name = $this->session->name;
             echo '<h2>Hello '.$name.'!</h2>';
@@ -32,13 +55,23 @@
             ); 
 
         } else {
-            echo '<h3>Please Login!</h3>';
+
+            $this->response->redirect('login');
+
+
+            /**
+             * Above is as per asked, redirected to the login page on directly accessing Dashboard page without login.
+             * 
+             * Lines below, are alternative to it. 
+             */
+
+            // echo '<h3>Please Login!</h3>';
             
 
-            echo $this->tag->linkTo(
-                'login',
-                'Login Here!'
-            );
+            // echo $this->tag->linkTo(
+            //     'login',
+            //     'Login Here!'
+            // );
         }
         ?>
     </p>

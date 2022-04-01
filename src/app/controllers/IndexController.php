@@ -16,6 +16,8 @@ class IndexController extends Controller
     {
         echo 'Logging out...';
 
+        $this->cookies->get('remember-me')->delete();
+
         $this->session->destroy();
 
         $this->response->redirect('index');
