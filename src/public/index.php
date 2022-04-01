@@ -137,6 +137,13 @@ $container->set(
     }
 );
 
+$container->set(
+    'servertime',
+    function () {
+        return date('Y-m-d');
+    }
+);
+
 try {
     // Handle the request
     $response = $application->handle(
