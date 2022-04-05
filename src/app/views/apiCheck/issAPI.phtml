@@ -1,0 +1,19 @@
+<?php
+
+echo "<h2>View for ISS-API data.</h2>";
+echo '<br>'. $response;
+
+echo '<pre>';
+print_r('<br>'.$response.'<br><br>');
+print_r(json_decode($response));
+
+$issData = json_decode($response);
+
+// print_r('<br>'.$issData->timestamp.'<br>');
+//  die;
+
+echo $this->tag->linkTo(
+    ['/',
+    'Back',
+    'class' => 'btn btn-primary']
+);

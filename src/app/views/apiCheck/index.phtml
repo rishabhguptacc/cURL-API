@@ -1,0 +1,25 @@
+<?php
+// echo $this->session->exists().' hey \n';/
+echo "<h2>Welcome, Let's try the API</h2>";
+
+
+echo PHP_EOL;
+// NASA ISS API controller link ---------------------------------------------------------------------------------
+echo '<br>';
+
+echo $this->tag->linkTo(
+    ['apiCheck/issAPI',
+    'Check for NASA\'s ISS API!',
+    'class'=>"btn btn-outline-primary"]
+);
+
+// Hindustan Times RSS API controller link---------------------------------------------------------------------------------
+echo '<br><br>';
+
+echo $this->tag->linkTo(
+    ['apiCheck/htRssAPI',
+    'Hindustan Times RSS API!',
+    'class'=>"btn btn-outline-primary"]
+);
+
+
