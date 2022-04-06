@@ -1,12 +1,11 @@
 <?php
 // echo "<pre>";
-// print_r($response);
+// print_r($urlFmt);
     
 $num = $response->numFound;
 $bookList = $response->docs;
-
-$isbnCount = count($bookList[0]->isbn);
-$latestIsbn = $bookList[0]->isbn[$isbnCount - 1];
+// print_r($bookList);
+// if(isset(  )) { }
 ?>
 
 <!-- <div class="card-columns"> -->
@@ -14,6 +13,10 @@ $latestIsbn = $bookList[0]->isbn[$isbnCount - 1];
 <?php
 
 for ($x = 0; $x < $num; $x++) {
+    if(isset( $bookList[$x]->isbn )) {
+        $isbnCount = count($bookList[$x]->isbn);
+        $latestIsbn = $bookList[$x]->isbn[$isbnCount - 1];
+    }
 ?>
 
 

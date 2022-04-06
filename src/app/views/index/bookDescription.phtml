@@ -4,35 +4,36 @@
     // print_r($response);
     foreach($response as $k => $value)
     {
-        $bib_key = $value->bib_key;
-        $info_url = $value->info_url;
-        $preview_url = $value->preview_url;
-        $thumbnail_url = $value->thumbnail_url;
+        if(isset( $value->bib_key )) { $bib_key = $value->bib_key;}
+        if(isset( $value->info_url )) { $info_url = $value->info_url;}
+        if(isset( $value->preview_url )) { $preview_url = $value->preview_url;}
+        if(isset( $value->thumbnail_url )) { $thumbnail_url = $value->thumbnail_url;}
 
-        $publishers = $value->details->publishers[0] ;
-        $last_modified = $value->details->last_modified->value ;
-        $title = $value->details->title ;
-        $full_title = $value->details->full_title ;
-        $publish_date = $value->details->publish_date ;
-        $author = $value->details->authors[0]->name ;
-        $latest_revision = $value->details->latest_revision ;
+        if(isset( $value->details->publishers )) { $publishers = $value->details->publishers[0] ;}
+        if(isset( $value->details->last_modified->value )) { $last_modified = $value->details->last_modified->value ;}
+        if(isset( $value->details->title )) { $title = $value->details->title ;}
+        if(isset( $value->details->full_title )) { $full_title = $value->details->full_title ;}
+        if(isset( $value->details->publish_date )) { $publish_date = $value->details->publish_date ;}
+        if(isset( $value->details->authors )) { $author = $value->details->authors[0]->name ;}
+        if(isset( $value->details->latest_revision )) { $latest_revision = $value->details->latest_revision ;}
 
     }
 
 
     // print_r($publishers);
  ?>
+<?php //if(isset(  )) { } ?>
 
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
 <div class="container bg-secondary">
     <div class="card text-white bg-dark">
         <div class="card-body text-white ">
-            <h2 class="card-title"><?= $full_title ?></h2>
+            <h2 class="card-title"><?php if(isset( $full_title )) { echo $full_title; } else {echo $title;} ?></h2>
             <!-- <h6 class="card-subtitle">globe type chair for rest</h6> -->
             <div class="row">
                 <div class="col-lg-5 col-md-5 col-sm-6">
-                    <div class="white-box text-center"><a href=<?= $thumbnail_url ?>><img src=<?= $thumbnail_url ?> class="img-responsive"></a></div>
+                    <div class="white-box text-center"><a href=<?php if(isset( $thumbnail_url )) { echo $thumbnail_url;} ?>><img src=<?php if(isset( $thumbnail_url )) { echo $thumbnail_url;} ?> class="img-responsive" alt="Image for <?php if(isset( $full_title )) { echo $full_title; } else {echo $title;} ?>"></a></div>
                 </div>
                 <!-- <div class="col-lg-7 col-md-7 col-sm-6">
                     
@@ -58,36 +59,36 @@
                                 </tr>
                                 <tr>
                                     <td>TITLE</td>
-                                    <td><?= $full_title ?></td>
+                                    <td><?php if(isset( $full_title )) { echo $full_title; } else {echo $title;} ?></td>
                                 </tr>
                                 <tr>
                                     <td>PUBLISH DATE</td>
-                                    <td><?= $publish_date ?></td>
+                                    <td><?php if(isset( $publish_date )) { echo $publish_date;} ?></td>
                                 </tr>
                                 <tr>
                                     <td>AUTHOR</td>
-                                    <td><?= $author ?></td>
+                                    <td><?php if(isset( $author )) { echo $author;} ?></td>
                                 </tr>
                                 <tr>
                                     <td>LATEST REVISION</td>
-                                    <td><?= $latest_revision ?></td>
+                                    <td><?php if(isset( $latest_revision )) { echo $latest_revision;} ?></td>
                                 </tr>
                                 <tr>
                                     <td>INFO URL</td>
-                                    <td><a href=<?= $info_url ?>><?= $info_url ?></a></td>
+                                    <td><a href='<?php if(isset( $info_url )) { echo $info_url;} ?>'><?php if(isset( $info_url )) { echo $info_url;} ?></a></td>
                                 </tr>
                                
                                 <tr>
                                     <td>PREVIEW URL</td>
-                                    <td><a href=<?= $preview_url ?>><?= $preview_url ?></a></td>
+                                    <td><a href='<?php if(isset( $preview_url )) { echo $preview_url;} ?>'><?php if(isset( $preview_url )) { echo $preview_url;} ?></a></td>
                                 </tr>
                                 <tr>
                                     <td>PUBLISHERS</td>
-                                    <td><?= $publishers ?></td>
+                                    <td><?php if(isset( $publishers )) { echo $publishers;} ?></td>
                                 </tr>
                                 <tr>
                                     <td>LAST MODIFIED</td>
-                                    <td><?= $last_modified ?></td>
+                                    <td><?php if(isset( $last_modified )) { echo $last_modified;} ?></td>
                                 </tr>
                                 
                             </tbody>

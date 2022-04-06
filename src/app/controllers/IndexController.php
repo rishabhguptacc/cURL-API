@@ -24,7 +24,7 @@ class IndexController extends Controller
 
 
         // print_r($urlFmt);
-        $this->view->$urlFmt = $urlFmt;
+        // $this->view->urlFmt = $urlFmt;
 
         $url = "https://openlibrary.org/search.json?q=".$urlFmt."&mode=ebooks&has_fulltext=true";
         
@@ -40,37 +40,6 @@ class IndexController extends Controller
         $response = json_decode($response);
         $this->view->response = $response;
         
-        // $num = $response->numFound;
-        // $bookList = $response->docs;
-        // $this->view->bookList = $bookList;
-
-        echo "<br><pre>";
-        $isbnCount = count($bookList[0]->isbn);
-        $latestIsbn = $bookList[0]->isbn[$isbnCount - 1];
-        // print_r($bookList[0]->isbn[$isbnCount - 1]);
-       
-        // print_r($urlBookTitle);
-
-        for ($x = 0; $x < $num; $x++) {
-            // print_r($bookList[$x]->title);
-            
-?>
-
-        <div class="card" style="width: 18rem;">
-        <a href="bookDescription?isbn=<?= $latestIsbn ?>">
-        <img src="//covers.openlibrary.org/b/olid/<?= $bookList[$x]->lending_edition_s ?>-M.jpg" class="card-img-top" alt="Cover of <?= $bookList[$x]->title ?> ">
-        </a>
-        <div class="card-body">
-            <p class="card card-text"> <h3><?= $bookList[$x]->title ?> </h3>  </p>
-            <p class="card card-text"> by <b><?= $bookList[$x]->author_name[0] ?> </b>  </p>
-            <p class="card card-text"> First published in <?= $bookList[$x]->first_publish_year ?> </p>
-            <p class="card-text"> <?= $bookList[$x]->edition_count ?> <?php if ($bookList[$x]->edition_count == 1){ ?> edition <?php } else {?> editions <?php } if(isset($bookList[$x]->ia_box_id)) { ?> --- <?= count($bookList[$x]->ia_box_id); ?> previewable</p> <?php } ?>
-            <a href="https://www.google.co.in/books/edition/<?= $urlFmt ?>/<?= $bookList[$x]->id_google[0] ?>?hl=en " class="btn btn-primary">Google Link</a>
-            <a href="https://www.google.co.in/books/edition/<?= $urlFmt ?>/<?= $bookList[$x]->id_amazon[0] ?>?hl=en " class="btn btn-primary">Amazon Link</a>
-        </div>
-        </div>
-<?php
-        }
         // print_r();
         // die;
     }
