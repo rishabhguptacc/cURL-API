@@ -23,7 +23,8 @@ class IndexController extends Controller
 
 
 
-        print_r($urlFmt);
+        // print_r($urlFmt);
+        $this->view->$urlFmt = $urlFmt;
 
         $url = "https://openlibrary.org/search.json?q=".$urlFmt."&mode=ebooks&has_fulltext=true";
         
@@ -39,12 +40,14 @@ class IndexController extends Controller
         $response = json_decode($response);
         $this->view->response = $response;
         
-        $num = $response->numFound;
-        $bookList = $response->docs;
-        $this->view->bookList = $bookList;
+        // $num = $response->numFound;
+        // $bookList = $response->docs;
+        // $this->view->bookList = $bookList;
 
         echo "<br><pre>";
-        // print_r($bookList[0]);
+        $isbnCount = count($bookList[0]->isbn);
+        $latestIsbn = $bookList[0]->isbn[$isbnCount - 1];
+        // print_r($bookList[0]->isbn[$isbnCount - 1]);
        
         // print_r($urlBookTitle);
 
@@ -54,7 +57,7 @@ class IndexController extends Controller
 ?>
 
         <div class="card" style="width: 18rem;">
-        <a href="">
+        <a href="bookDescription?isbn=<?= $latestIsbn ?>">
         <img src="//covers.openlibrary.org/b/olid/<?= $bookList[$x]->lending_edition_s ?>-M.jpg" class="card-img-top" alt="Cover of <?= $bookList[$x]->title ?> ">
         </a>
         <div class="card-body">
@@ -69,7 +72,25 @@ class IndexController extends Controller
 <?php
         }
         // print_r();
-        die;
+        // die;
+    }
+
+    public function bookDescriptionAction()
+    {
+        
+        $isbn = $this->request->get('isbn');
+
+        $url = "https://openlibrary.org/api/books?bibkeys=ISBN:".$isbn."&jscmd=details&format=json";
+
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, $url);
+            
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+        $response = curl_exec($ch);
+        $response = json_decode($response);
+        $this->view->response = $response;
     }
 }
 
